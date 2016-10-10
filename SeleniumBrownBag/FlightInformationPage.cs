@@ -7,18 +7,13 @@ using System.Threading.Tasks;
 
 namespace SeleniumBrownBag
 {
-    internal class FlightInformationPage
+    internal class FlightInformationPage : PageBase
     {
-        readonly IWebDriver driver;
-        public FlightInformationPage(IWebDriver driver)
-        {
-            this.driver = driver;
-        }
+        public FlightInformationPage(IWebDriver driver) : base(driver) { }
 
         public string GetStatusMessage()
         {
-            var statusMsgElem = driver.FindElement(By.CssSelector(".status-msg"));
-            return statusMsgElem.Text;
+            return GetText(".status-msg");
         }
     }
 }

@@ -7,25 +7,19 @@ using System.Threading.Tasks;
 
 namespace SeleniumBrownBag
 {
-    internal class FlightStatusPage
+    internal class FlightStatusPage : PageBase
     {
-        readonly IWebDriver driver;
-        public FlightStatusPage(IWebDriver driver)
-        {
-            this.driver = driver;
-        }
+        public FlightStatusPage(IWebDriver driver) : base(driver) { }
 
         public void GotoUrl()
         {
-            driver.Navigate().GoToUrl("https://m.alaskaair.com/flightstatus");
+            GoTo("https://m.alaskaair.com/flightstatus");
         }
 
         public FlightInformationPage SearchForFlightByNumber(string flightNumber)
         {
-            var flightNumberElem = driver.FindElement(By.CssSelector("#FlightNumber"));
-            flightNumberElem.SendKeys(flightNumber);
-            var continueBtn = driver.FindElement(By.CssSelector("input[type=submit]"));
-            continueBtn.Click();
+            Input("#FlightNumber", flightNumber);
+            Click("input[type=submit]");
             return new FlightInformationPage(driver);
         }
     }
